@@ -9,8 +9,6 @@
 config_version=5
 
 [application]
-
- HEAD
 config/name="Swords & Skirmishes"
 run/main_scene="res://scenes/world.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
@@ -59,4 +57,3 @@ jump={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
 ]
 }
- origin/main
