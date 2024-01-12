@@ -11,9 +11,20 @@ config_version=5
 [application]
 
 config/name="Swords & Skirmishes"
-run/main_scene="res://scenes/world.tscn"
+run/main_scene="res://scenes/UI/main_menu.scn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://art/icon.svg"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=3
+window/stretch/mode="canvas_items"
+
+[editor]
+
+movie_writer/movie_file="G:/Temporary/SandS.avi"
 
 [input]
 
