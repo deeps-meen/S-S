@@ -24,7 +24,12 @@ window/stretch/mode="canvas_items"
 
 [editor]
 
+movie_writer/mjpeg_quality=0.2
 movie_writer/movie_file="G:/Temporary/SandS.avi"
+
+[filesystem]
+
+import/fbx/enabled=false
 
 [input]
 
