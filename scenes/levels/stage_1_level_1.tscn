@@ -1,0 +1,54 @@
+[gd_scene load_steps=12 format=3 uid="uid://bb0l44euwosyb"]
+
+[ext_resource type="Script" path="res://scripts/world.gd" id="1_6hp6v"]
+[ext_resource type="Texture2D" uid="uid://dqniq1pql3q2b" path="res://art/whispy-grass-meadow-bl/wispy-grass-meadow_albedo.png" id="2_cdyoi"]
+[ext_resource type="Texture2D" uid="uid://btk374igggamo" path="res://art/whispy-grass-meadow-bl/wispy-grass-meadow_ao.png" id="3_xxnrx"]
+[ext_resource type="Texture2D" uid="uid://bf6hg5b8avuk1" path="res://art/whispy-grass-meadow-bl/wispy-grass-meadow_height.png" id="4_4fmbi"]
+[ext_resource type="Texture2D" uid="uid://d3pm7k3rnt8q7" path="res://art/whispy-grass-meadow-bl/wispy-grass-meadow_metallic.png" id="5_8507u"]
+[ext_resource type="Texture2D" uid="uid://30gpxrhc86bw" path="res://art/whispy-grass-meadow-bl/wispy-grass-meadow_normal-ogl.png" id="6_8ehsr"]
+[ext_resource type="Texture2D" uid="uid://dhfmxljorld8m" path="res://art/whispy-grass-meadow-bl/wispy-grass-meadow_roughness.png" id="7_s70t5"]
+[ext_resource type="PackedScene" uid="uid://bd0q78fditipk" path="res://scenes/player_knight/player2.tscn" id="8_a0pmt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f61g4"]
+albedo_texture = ExtResource("2_cdyoi")
+metallic = 0.14
+metallic_specular = 0.18
+metallic_texture = ExtResource("5_8507u")
+roughness_texture = ExtResource("7_s70t5")
+normal_enabled = true
+normal_scale = 9.09
+normal_texture = ExtResource("6_8ehsr")
+ao_enabled = true
+ao_texture = ExtResource("3_xxnrx")
+heightmap_enabled = true
+heightmap_scale = 2.188
+heightmap_deep_parallax = true
+heightmap_min_layers = 8
+heightmap_max_layers = 32
+heightmap_texture = ExtResource("4_4fmbi")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_cu0ro"]
+material = SubResource("StandardMaterial3D_f61g4")
+size = Vector2(32, 32)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_vm7cv"]
+data = PackedVector3Array(16, 0, 16, -16, 0, 16, 16, 0, -16, -16, 0, 16, -16, 0, -16, 16, 0, -16)
+
+[node name="world" type="Node3D"]
+script = ExtResource("1_6hp6v")
+
+[node name="ground" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_cu0ro")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ground/StaticBody3D2"]
+shape = SubResource("ConcavePolygonShape3D_vm7cv")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.423267, -0.316668, -0.848862, 0.906005, 0.147941, 0.396571, 0, -0.936929, 0.349521, -0.202775, 5.09964, 0.188795)
+light_energy = 2.808
+light_indirect_energy = 6.635
+light_volumetric_fog_energy = 8.111
+
+[node name="player" parent="." instance=ExtResource("8_a0pmt")]

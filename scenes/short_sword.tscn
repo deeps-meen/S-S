@@ -1,5 +1,5 @@
 [gd_scene load_steps=2 format=3 uid="uid://c205xv2bvke8r"]
 
-[ext_resource type="PackedScene" uid="uid://cuym1nbrf3rxa" path="res://art/short_sword.glb" id="1_q6jqg"]
+[ext_resource type="PackedScene" uid="uid://cuym1nbrf3rxa" path="res://art/short_sword/short_sword.glb" id="1_q6jqg"]
 
 [node name="short_sword" instance=ExtResource("1_q6jqg")]
