@@ -39,9 +39,10 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("light_attack") and not is_attacking:
+		state_machine.stop()
 		state_machine.travel("slash")
 		is_attacking = true
-		var attacking = await get_tree().create_timer(1.3).timeout.connect(func():
+		var _attacking = get_tree().create_timer(1.3).timeout.connect(func():
 			is_attacking = false
 		)
 		
@@ -57,6 +58,8 @@ func _physics_process(delta):
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
+		state_machine.stop()
+		state_machine.travel("jump")
 		velocity.y = JUMP_VELOCITY
 
 
@@ -90,8 +93,8 @@ func _physics_process(delta):
 		elif is_sprinting:
 			move_speed = SPEED
 			is_sprinting = false
+		else:
 			pass
-		pass
 	
 	if Input.is_action_pressed("dodge") and not is_dodging:
 		is_dodging = true
@@ -99,22 +102,20 @@ func _physics_process(delta):
 		if not is_sprinting:
 			move_speed += 2
 		move_speed += .5
-		var dodging = await get_tree().create_timer(0.9).timeout.connect(func():
+		var _dodging = get_tree().create_timer(0.9).timeout.connect(func():
 			is_dodging = false
 			move_speed = SPEED
 			if is_sprinting:
 				move_speed = 1
-				var recover = await get_tree().create_timer(.5).timeout.connect(func():
+				var _recover = get_tree().create_timer(.5).timeout.connect(func():
 					move_speed = SPEED + sprint_speed
-					pass	
 				)
-				pass
 		)
 
 	if is_dodging:
 		velocity = dodge_dir * move_speed
 		if is_sprinting:
-			velocity = dodge_dir * (move_speed / 6)
+			velocity = dodge_dir * (move_speed / 7)
 	
 
 	move_and_slide()
