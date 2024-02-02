@@ -10,15 +10,15 @@ enum PlayerState {
 
 const SPEED = 1.9
 const JUMP_VELOCITY = 4.5
-const LERP_VAL = .15
+const LERP_VAL = .3
 
-@onready var spring = $SpringArm3D
-@onready var rig = $Node
+@onready var rig = get_node("Node")
 @onready var anim_tree = $tree
 @onready var current_state : PlayerState = PlayerState.IDLE
 @onready var state_machine = anim_tree["parameters/playback"]
 @onready var tree = get_tree()
 @onready var parent = get_parent()
+@onready var spring = $SpringArm3D
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var cam_facing = Vector3.ZERO
@@ -44,6 +44,7 @@ func _input(event):
 		is_attacking = true
 		var _attacking = get_tree().create_timer(1.3).timeout.connect(func():
 			is_attacking = false
+			state_machine.stop()
 		)
 		
 	else:
@@ -79,6 +80,8 @@ func _physics_process(delta):
 		rig.rotation.y = lerp_angle(rig.rotation.y, atan2(-velocity.x, -velocity.z), LERP_VAL)
 	else:
 		state_machine.travel("idle")
+		move_speed = SPEED
+		is_sprinting = false
 		velocity.x = lerp(velocity.x, 0.0, LERP_VAL)
 		velocity.z = lerp(velocity.z, 0.0, LERP_VAL)
 	

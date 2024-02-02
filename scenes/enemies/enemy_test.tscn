@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cm3qmnoqtr3ee"]
+[gd_scene load_steps=9 format=3 uid="uid://cm3qmnoqtr3ee"]
 
 [ext_resource type="Script" path="res://scripts/enemy_test.gd" id="1_e48i4"]
 
@@ -9,7 +9,20 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_youos"]
 albedo_color = Color(0.247059, 0, 0.627451, 1)
 
-[node name="enemy_test" type="CharacterBody3D"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_1g0qc"]
+radius = 10.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hdwu2"]
+albedo_color = Color(0.945098, 0.462745, 0.0509804, 1)
+roughness = 0.37
+
+[sub_resource type="PrismMesh" id="PrismMesh_omw6n"]
+material = SubResource("StandardMaterial3D_hdwu2")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0p1g8"]
+radius = 2.0
+
+[node name="enemy_test" type="CharacterBody3D" groups=["enemy"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_e48i4")
 
@@ -19,3 +32,25 @@ shape = SubResource("CapsuleShape3D_scloa")
 [node name="StaticBody3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_fwodi")
 surface_material_override/0 = SubResource("StandardMaterial3D_youos")
+
+[node name="detect_zone" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="detect_zone"]
+shape = SubResource("SphereShape3D_1g0qc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.849692, 0, 0, 0, -2.18557e-08, 0.202176, 0, -0.5, -8.83738e-09, 0, 0.323334, -0.416193)
+mesh = SubResource("PrismMesh_omw6n")
+skeleton = NodePath("../detect_zone")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="fight_zone" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="fight_zone"]
+shape = SubResource("SphereShape3D_0p1g8")
+
+[connection signal="body_entered" from="detect_zone" to="." method="_on_detect_zone_body_entered"]
+[connection signal="body_exited" from="detect_zone" to="." method="_on_detect_zone_body_exited"]
+[connection signal="body_entered" from="fight_zone" to="." method="_on_fight_zone_body_entered"]
+[connection signal="body_exited" from="fight_zone" to="." method="_on_fight_zone_body_exited"]

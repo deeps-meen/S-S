@@ -3,10 +3,10 @@ extends SpringArm3D
 
 @onready var cam = $Camera3D
 
-var sensitivity = 0.001
+var sensitivity = 0.18
 var cam_cap = true
-var max_pitch_angle = 85.0  # Adjust this value for desired maximum pitch
-var min_pitch_angle = -85.0
+var max_pitch_angle = 65.0  # Adjust this value for desired maximum pitch
+var min_pitch_angle = -75.0
 
 
 func _ready():
@@ -39,11 +39,17 @@ func _process(_delta):
 
 func _input(event):
 	if event is InputEventMouseMotion:
-		if cam_cap == true:
-			var pitch_change = -event.relative.y * sensitivity
-			var new_pitch = clamp(rotation.x + pitch_change, min_pitch_angle, max_pitch_angle)
-			rotation.x = new_pitch
-			
-			rotate(Vector3.UP, -event.relative.x * sensitivity)
-			rotate_object_local(Vector3.RIGHT, -event.relative.y * sensitivity)
-		pass
+		if cam_cap:
+			var rotation_change = Vector3(
+				-event.relative.y * sensitivity,
+				-event.relative.x * sensitivity,
+				0
+			)
+
+			# Apply rotation changes
+			var current_rotation = get_rotation_degrees()
+			current_rotation.x = clamp(current_rotation.x + rotation_change.x, min_pitch_angle, max_pitch_angle)
+			current_rotation.y += rotation_change.y
+
+			# Apply the new rotation
+			set_rotation_degrees(current_rotation)
