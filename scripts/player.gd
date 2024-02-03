@@ -1,8 +1,11 @@
 extends CharacterBody3D
 
+class_name Game_Player
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
+
+signal attack_end
 
 @onready var _anim = %AnimationTree
 
@@ -12,11 +15,12 @@ const JUMP_VELOCITY = 4.5
 
 var _cam:Camera3D
 var _view:Marker3D
-
+var _follow_cam:bool = true
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
+	
 	#set tween timer
 	_anim.recovery_speed = recover_stamina_speed
 	_cam = get_viewport().get_camera_3d()
@@ -55,10 +59,30 @@ func _process(delta):
 	elif Input.is_action_pressed("emote"):
 		_anim.anim = _anim.codes.EMOTE
 	elif Input.is_action_pressed("E"):
-		_anim.anim = _anim.codes.STEALTH
+		if Combat.locktarget():
+			_anim.anim = _anim.codes.STEALTH
+			var newAtt:= ATTACK.new(ATTACK.new(self))
+			connect("attack_end",Callable(newAtt,"finish"))
+			Combat.launch_attack(newAtt)
 	else:
 		_anim.anim = _anim.codes.IDLE
 
 #func _unhandled_input(event):
 	#if (event is InputEvent) and (event.is_action("emote")) and event.is_action_pressed("emote"):
 
+#For attacks that requires player to be at certain location (from oher players) for animation to work.
+#Possibly called from animation.
+func snap_to_target()->void:
+	disableCollision()
+	var tPlayer:CharacterBody3D = Combat.get_target()
+	transform.origin = tPlayer.position
+	transform.basis = tPlayer.transform.basis
+	#transform.basis
+
+func attak_finished()->void:
+	emit_signal("attack_end")
+	Combat.unlocktarget()
+	disableCollision(false)
+
+func  disableCollision(flag:bool=true)->void:
+	$CollisionShape3D.disabled = flag

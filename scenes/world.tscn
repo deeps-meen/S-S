@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dtpp0p6rjcmna"]
+[gd_scene load_steps=11 format=3 uid="uid://dtpp0p6rjcmna"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_p03xh"]
 [ext_resource type="Shader" path="res://assets/materials/ground.gdshader" id="2_qokbd"]
 [ext_resource type="Texture2D" uid="uid://q8iidltd7ijf" path="res://assets/images/textures/free_texture_dirt_05.jpg" id="3_gd34p"]
 [ext_resource type="Texture2D" uid="uid://cxfoh7iuaumys" path="res://assets/images/textures/grass_texture_hd_31.jpg" id="4_vfm7a"]
+[ext_resource type="PackedScene" uid="uid://cc77yov28wx61" path="res://scenes/knight.scn" id="7_5rbtv"]
 [ext_resource type="Script" path="res://scripts/look_target.gd" id="10_lnlym"]
 [ext_resource type="PackedScene" uid="uid://y6arg64iwy26" path="res://scenes/character1.scn" id="16_eyohx"]
 
@@ -54,3 +55,6 @@ cam_offset = Vector3(-0.725, 1.215, -1.14)
 h_offset = 0.0123035
 current = true
 fov = 74.9932
+
+[node name="knight" parent="." instance=ExtResource("7_5rbtv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07, 0, 1.96)

@@ -1,7 +1,9 @@
 extends AnimationTree
 
+class_name Anim_Tree
+
 const SPRINT_TIME = 100
-enum codes {IDLE,WALK,RUN,JUMP,BACK,EMOTE,STEALTH};
+enum codes {IDLE,WALK,RUN,JUMP,BACK,EMOTE,STEALTH,STEALTHDEFEND};
 enum walk {CAT,INJURED,PHONE}
 
 var recovery_speed:float = 0.1
@@ -73,5 +75,9 @@ func set_animation(anim_code:int)->void:
 		codes.STEALTH:
 			set("parameters/attack_mode/attacks/transition_request","stealth")
 			set("parameters/attack/request",true)
+		codes.STEALTHDEFEND:
+			set("parameters/attack_mode/attacks/transition_request","defend")
+			set("parameters/attack/request",true)
+			
 		_:
 			pass

@@ -18,6 +18,8 @@ input_1/auto_advance = false
 input_1/reset = true
 
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_17qc1"]
+fadein_time = 0.3
+fadeout_time = 0.3
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f8mt5"]
 animation = &"hiphop"
@@ -76,7 +78,7 @@ states/idle_2/position = Vector2(431, 214)
 states/idle_stand/node = SubResource("AnimationNodeAnimation_2hebg")
 states/idle_stand/position = Vector2(431, 100)
 transitions = ["Start", "idle_stand", SubResource("AnimationNodeStateMachineTransition_avj2s"), "idle_stand", "End", SubResource("AnimationNodeStateMachineTransition_0oi11"), "idle_stand", "idle_1", SubResource("AnimationNodeStateMachineTransition_yc30n"), "idle_stand", "idle_2", SubResource("AnimationNodeStateMachineTransition_2a71q"), "idle_1", "idle_stand", SubResource("AnimationNodeStateMachineTransition_rwojn"), "idle_2", "idle_stand", SubResource("AnimationNodeStateMachineTransition_ygr5y")]
-graph_offset = Vector2(-62, -10)
+graph_offset = Vector2(-71, -5)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jaiye"]
 animation = &"sprint"
@@ -173,7 +175,7 @@ fadein_time = 0.3
 fadeout_time = 0.3
 
 [resource]
-graph_offset = Vector2(-291.871, 198.656)
+graph_offset = Vector2(-553.918, 60.8845)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_ywohp")
 nodes/Animation/position = Vector2(-1100, 160)
 "nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_fakn7")
