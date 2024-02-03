@@ -18,7 +18,7 @@ func _unhandled_key_input(event):
 
 
 func _on_start_button_up():
-	pass # Replace with function body.
+	get_tree().change_scene_to_file("res://scenes/world.tscn")
 
 
 func _on_exit_button_down():
