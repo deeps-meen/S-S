@@ -1,0 +1,26 @@
+[gd_resource type="AnimationNodeBlendTree" load_steps=4 format=3 uid="uid://kqaoodt8s0eu"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wmrc5"]
+animation = &"defend_stealth"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1tgfd"]
+animation = &"attack_stealth"
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_vv85f"]
+xfade_time = 0.3
+input_0/name = "stealth"
+input_0/auto_advance = false
+input_0/reset = true
+input_1/name = "defend"
+input_1/auto_advance = false
+input_1/reset = true
+
+[resource]
+graph_offset = Vector2(-694, 127)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_1tgfd")
+nodes/Animation/position = Vector2(-320, 120)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_wmrc5")
+"nodes/Animation 2/position" = Vector2(-320, 260)
+nodes/attacks/node = SubResource("AnimationNodeTransition_vv85f")
+nodes/attacks/position = Vector2(-20, 140)
+node_connections = [&"attacks", 0, &"Animation", &"attacks", 1, &"Animation 2", &"output", 0, &"attacks"]
